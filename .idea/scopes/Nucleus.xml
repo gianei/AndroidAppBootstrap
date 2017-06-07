@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Nucleus" pattern="file[nucleus]:*/||file[nucleus-test-kit]:*/" />
+</component>
