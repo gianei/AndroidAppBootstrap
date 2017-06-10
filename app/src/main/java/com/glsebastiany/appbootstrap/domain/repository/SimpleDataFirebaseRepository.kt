@@ -19,11 +19,13 @@ package com.glsebastiany.appbootstrap.domain.repository
 
 
 import android.content.Context
+import com.androidhuman.rxfirebase2.database.ChildEvent
 import com.androidhuman.rxfirebase2.database.RxFirebaseDatabase
 import com.glsebastiany.appbootstrap.domain.SimpleData
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SimpleDataFirebaseRepository @Inject
@@ -33,12 +35,9 @@ constructor(private val context: Context ) : SimpleDataRepository {
         FirebaseApp.initializeApp(context)
     }
 
-    override fun listen(): Observable<SimpleData> {
+    override fun listen(): Observable<ChildEvent> {
         return RxFirebaseDatabase
                 .childEvents(FirebaseDatabase.getInstance().getReference("simpleData"))
-                .map { event ->
-                    Thread.sleep(1000)
-                    event.dataSnapshot().getValue(SimpleData::class.java)
-                }
+//                .delay(1, TimeUnit.SECONDS)
     }
 }

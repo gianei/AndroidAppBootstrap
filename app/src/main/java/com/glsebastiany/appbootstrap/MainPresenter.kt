@@ -18,10 +18,16 @@
 package com.glsebastiany.appbootstrap
 
 import android.os.Bundle
+import com.androidhuman.rxfirebase2.database.ChildAddEvent
+import com.androidhuman.rxfirebase2.database.ChildChangeEvent
+import com.androidhuman.rxfirebase2.database.ChildMoveEvent
+import com.androidhuman.rxfirebase2.database.ChildRemoveEvent
+import com.glsebastiany.appbootstrap.domain.SimpleData
 import com.glsebastiany.appbootstrap.domain.interactor.ListenToSimpleData
 import com.glsebastiany.appbootstrap.nucleus5.KotlinRxPresenter
 import com.glsebastiany.appbootstrap.splash.Singletons
 import io.reactivex.functions.BiConsumer
+import io.reactivex.functions.Consumer
 import nucleus5.presenter.Factory
 import javax.inject.Inject
 
@@ -45,8 +51,32 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
         restartableWithView(
                 REQUEST_ITEMS,
                 Factory { listenToSimpleData.execute(null) },
-                BiConsumer { v, d -> v?.onItems(d, name) },
-                BiConsumer { t1, t2 -> println(t2) })
+                Consumer { delivery ->
+                    val event = delivery.value
+                    val view = delivery.view
+
+                    if (view != null)
+                        when (event){
+                            is ChildAddEvent -> {
+                                val data = event.dataSnapshot().getValue(SimpleData::class.java)
+                                data?.let { view.adapter.add(event.dataSnapshot().key, event.previousChildName(), it) }
+                            }
+
+                            is ChildChangeEvent -> {
+                                val data = event.dataSnapshot().getValue(SimpleData::class.java)
+                                data?.let { view.adapter.change(event.dataSnapshot().key, it) }
+                            }
+
+                            is ChildRemoveEvent -> {
+                                view.adapter.remove(event.dataSnapshot().key)
+                            }
+
+                            is ChildMoveEvent -> {
+                                event.previousChildName()?.let { view.adapter.move(event.dataSnapshot().key, it) }
+                            }
+                        }
+                },
+                Consumer { throwable -> println(throwable) })
 
         if (savedState == null)
             start(REQUEST_ITEMS)

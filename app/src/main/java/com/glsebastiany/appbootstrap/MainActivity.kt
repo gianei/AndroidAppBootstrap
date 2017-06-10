@@ -20,11 +20,9 @@ package com.glsebastiany.appbootstrap
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.glsebastiany.appbootstrap.databinding.ActivityMainBinding
-
-import com.glsebastiany.appbootstrap.domain.SimpleData
-
 import nucleus5.factory.RequiresPresenter
 import nucleus5.view.NucleusActivity
 
@@ -32,6 +30,8 @@ import nucleus5.view.NucleusActivity
 class MainActivity : NucleusActivity<MainPresenter>() {
 
     var binding: ActivityMainBinding? = null
+
+    val adapter = MainAdapter()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -58,16 +58,20 @@ class MainActivity : NucleusActivity<MainPresenter>() {
 
         binding?.navigation?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
+        binding?.mainList?.adapter = adapter
+        binding?.mainList?.layoutManager = LinearLayoutManager(this)
+//        binding?.mainList?.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+
         presenter.request(MainPresenter.NAME_1)
-    }
-
-    fun onItems(items: SimpleData, user: String) {
-        Toast.makeText(this, items.name, Toast.LENGTH_LONG).show()
-
     }
 
     fun onNetworkError(throwable: Throwable) {
         Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()
     }
+
+    fun retrieveAdapter(): MainAdapter {
+        return adapter
+    }
+
 
 }

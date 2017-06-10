@@ -19,19 +19,14 @@ package com.glsebastiany.appbootstrap.nucleus5
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
-
-import java.util.ArrayList
-import java.util.HashMap
-
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.BiConsumer
 import io.reactivex.functions.Consumer
 import io.reactivex.subjects.BehaviorSubject
 import nucleus5.presenter.Factory
 import nucleus5.presenter.Presenter
-import nucleus5.presenter.delivery.Delivery
+import java.util.*
 
 /**
  * This is an extension of [Presenter] which provides RxJava functionality.
@@ -129,59 +124,12 @@ open class KotlinRxPresenter<View> : Presenter<View?>() {
     }
 
     fun <T> restartableWithView(restartableId: Int, observableFactory: Factory<Observable<T>>,
-                                onNext: BiConsumer<View, T>, onError: BiConsumer<View, Throwable>?){
+                                onNext: Consumer<KotlinDelivery<View?, T>>, onError: Consumer<Throwable>){
         restartable(restartableId, Factory {
             observableFactory.create()
                     .compose (KotlinTransformer<View, T>(view()))
-                    .subscribe { split(onNext, onError)}
+                    .subscribe(onNext, onError)
         })
-    }
-
-//    fun <T> restartableReplay(restartableId: Int, observableFactory: Factory<Observable<T>>,
-//                              onNext: BiConsumer<View, T>, onError: BiConsumer<View, Throwable>?) {
-//
-//        restartable(restartableId, Factory {
-//            observableFactory.create()
-//                    .compose(this@KotlinRxPresenter.deliverReplay<T>())
-//                    .subscribe(split(onNext, onError))
-//        })
-//    }
-
-
-    /**
-     * Returns an [io.reactivex.ObservableTransformer] that couples views with data that has been emitted by
-     * the source [Observable].
-
-     * [.deliverReplay] keeps all onNext values and emits them each time a new view gets attached.
-     * If a new onNext value appears while a view is attached, it will be delivered immediately.
-
-     * @param <T> the type of source observable emissions
-    </T> */
-//    fun <T> deliverReplay(): DeliverReplay<View?, T> {
-//        return DeliverReplay(views)
-//    }
-
-    /**
-     * Returns a method that can be used for manual restartable chain build. It returns an Action1 that splits
-     * a received [Delivery] into two [BiConsumer] onNext and onError calls.
-
-     * @param onNext  a method that will be called if the delivery contains an emitted onNext value.
-     * *
-     * @param onError a method that will be called if the delivery contains an onError throwable.
-     * *
-     * @param <T>     a type on onNext value.
-     * *
-     * @return an Action1 that splits a received [Delivery] into two [BiConsumer] onNext and onError calls.
-    </T> */
-    fun <T> split(onNext: BiConsumer<View, T>, onError: BiConsumer<View, Throwable>?): Consumer<Delivery<View, T>> {
-        return Consumer { delivery -> delivery.split(onNext, onError) }
-    }
-
-    /**
-     * This is a shortcut for calling [.split] when the second parameter is null.
-     */
-    fun <T> split(onNext: BiConsumer<View, T>): Consumer<Delivery<View, T>> {
-        return split(onNext, null)
     }
 
     /**

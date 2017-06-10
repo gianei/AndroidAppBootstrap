@@ -17,12 +17,11 @@
 
 package com.glsebastiany.appbootstrap.domain.repository
 
-import com.glsebastiany.appbootstrap.domain.SimpleData
-
+import com.androidhuman.rxfirebase2.database.ChildEvent
 import io.reactivex.Observable
 
 interface SimpleDataRepository {
 
-    fun listen(): Observable<SimpleData>
+    fun listen(): Observable<ChildEvent>
 
 }

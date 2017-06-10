@@ -19,17 +19,16 @@ package com.glsebastiany.appbootstrap.widgets
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
-
-//import com.glsebastiany.appbootstrap.BR
+import com.glsebastiany.appbootstrap.BR
 
 class RVGenericViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bindModel(model: Any) {
-//        binding.setVariable(BR.obj, model)
+        binding.setVariable(BR.obj, model)
         binding.executePendingBindings()
     }
 
     fun bindHandler(handler: Any) {
-//        binding.setVariable(BR.handler, handler)
+        binding.setVariable(BR.handler, handler)
     }
 }
