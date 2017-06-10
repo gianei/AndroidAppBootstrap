@@ -27,12 +27,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.glsebastiany.appbootstrap.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name="com.glsebastiany.appbootstrap.splash.SplashScreen"
+            android:name=".splash.SplashScreen"
             android:noHistory="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
