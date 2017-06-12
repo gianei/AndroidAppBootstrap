@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.splash
+package com.glsebastiany.appbootstrap.application
 
 import android.content.Context
 
@@ -24,11 +24,7 @@ import com.glsebastiany.appbootstrap.di.ApplicationModule
 import com.glsebastiany.appbootstrap.di.DaggerApplicationComponent
 
 
-class Singletons {
-
-    interface Injector {
-        fun inject(singletons: Singletons)
-    }
+class AppSingletons {
 
     lateinit var applicationComponent: ApplicationComponent
         private set
@@ -37,26 +33,23 @@ class Singletons {
 
         private val MUTEX = Any()
 
+        private var myinstance: AppSingletons? = null
 
-        protected var myinstance: Singletons? = null
-
-        fun start(applicationContext: Context): Singletons? {
+        fun start(applicationContext: Context): AppSingletons? {
             if (myinstance == null) {
                 synchronized(MUTEX) {
                     if (myinstance == null) {
-                        myinstance = Singletons()
+                        myinstance = AppSingletons()
                         myinstance!!.applicationComponent = DaggerApplicationComponent.builder()
                                 .applicationModule(ApplicationModule(applicationContext.applicationContext))
                                 .build()
-                        //                    myinstance.applicationComponent.inject(myinstance);
-
                     }
                 }
             }
             return myinstance
         }
 
-        val instance: Singletons
+        val instance: AppSingletons
             get() {
                 if (myinstance == null) {
                     throw IllegalStateException("It has not been injected")
@@ -64,6 +57,12 @@ class Singletons {
 
                 return myinstance!!
             }
+
+        val injector: ApplicationComponent
+            get() {
+                return instance.applicationComponent
+            }
+
     }
 
 }

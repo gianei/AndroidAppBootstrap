@@ -25,8 +25,8 @@ import com.androidhuman.rxfirebase2.database.ChildRemoveEvent
 import com.glsebastiany.appbootstrap.domain.SimpleData
 import com.glsebastiany.appbootstrap.domain.interactor.ListenToSimpleData
 import com.glsebastiany.appbootstrap.nucleus5.KotlinRxPresenter
-import com.glsebastiany.appbootstrap.splash.Singletons
-import io.reactivex.functions.BiConsumer
+import com.glsebastiany.appbootstrap.application.AppSingletons
+import com.glsebastiany.appbootstrap.di.ApplicationComponent
 import io.reactivex.functions.Consumer
 import nucleus5.presenter.Factory
 import javax.inject.Inject
@@ -39,11 +39,12 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
     @Inject
     lateinit  var listenToSimpleData: ListenToSimpleData
 
+    override fun inject(injector: ApplicationComponent) {
+        injector.inject(this)
+    }
+
     public override fun onCreate(savedState: Bundle?) {
         super.onCreate(savedState)
-
-        //TODO pass to abstract
-        Singletons.instance.applicationComponent.inject(this)
 
         if (savedState != null)
             name = savedState.getString(NAME_KEY)

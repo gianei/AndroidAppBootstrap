@@ -19,6 +19,8 @@ package com.glsebastiany.appbootstrap.nucleus5
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import com.glsebastiany.appbootstrap.application.AppSingletons
+import com.glsebastiany.appbootstrap.di.ApplicationComponent
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -33,7 +35,7 @@ import java.util.*
 
  * @param <View> a type of view.
 </View> */
-open class KotlinRxPresenter<View> : Presenter<View?>() {
+abstract class KotlinRxPresenter<View> : Presenter<View?>() {
 
     private val views = BehaviorSubject.create<View?>()
     private val disposables = CompositeDisposable()
@@ -137,6 +139,8 @@ open class KotlinRxPresenter<View> : Presenter<View?>() {
      */
     @CallSuper
     override fun onCreate(savedState: Bundle?) {
+        inject(AppSingletons.injector)
+
         if (savedState != null)
             requested.addAll(savedState.getIntegerArrayList(REQUESTED_KEY))
     }
@@ -189,6 +193,8 @@ open class KotlinRxPresenter<View> : Presenter<View?>() {
     override fun getView(): View? {
         return super.getView()
     }
+
+    protected abstract fun inject(injector: ApplicationComponent)
 
     companion object {
 

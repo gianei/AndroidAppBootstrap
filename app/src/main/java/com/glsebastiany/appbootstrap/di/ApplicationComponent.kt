@@ -20,7 +20,7 @@ package com.glsebastiany.appbootstrap.di
 
 import android.content.Context
 import com.glsebastiany.appbootstrap.MainPresenter
-import com.glsebastiany.appbootstrap.splash.Singletons
+import com.glsebastiany.appbootstrap.application.AppSingletons
 import dagger.Component
 import javax.inject.Singleton
 
@@ -30,10 +30,10 @@ import javax.inject.Singleton
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
 @Component(modules = arrayOf(ApplicationModule::class))
 interface ApplicationComponent {
-    //Exposed to sub-graphs.
+    // Exposed to sub-graphs. Calls like this must be inserted if it is necessary to expose Context
+    // for sub components
     fun context(): Context
 
-    fun inject(singletons: Singletons)
-
+    // Calls like this are needed for every point of injection
     fun inject(mainPresenter: MainPresenter)
 }
