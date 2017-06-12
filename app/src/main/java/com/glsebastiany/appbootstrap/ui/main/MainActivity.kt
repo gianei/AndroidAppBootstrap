@@ -15,58 +15,52 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap
+package com.glsebastiany.appbootstrap.ui.main
 
-import android.databinding.DataBindingUtil
-import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.widget.LinearLayoutManager
-import android.widget.Toast
 import com.glsebastiany.appbootstrap.databinding.ActivityMainBinding
-import nucleus5.factory.RequiresPresenter
 import nucleus5.view.NucleusActivity
 
-@RequiresPresenter(MainPresenter::class)
+@nucleus5.factory.RequiresPresenter(MainPresenter::class)
 class MainActivity : NucleusActivity<MainPresenter>() {
 
     var binding: ActivityMainBinding? = null
 
     val adapter = MainAdapter()
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private val mOnNavigationItemSelectedListener = android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
-                binding?.message?.setText(R.string.title_home)
+            com.glsebastiany.appbootstrap.R.id.navigation_home -> {
+                binding?.message?.setText(com.glsebastiany.appbootstrap.R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                binding?.message?.setText(R.string.title_dashboard)
+            com.glsebastiany.appbootstrap.R.id.navigation_dashboard -> {
+                binding?.message?.setText(com.glsebastiany.appbootstrap.R.string.title_dashboard)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
-                binding?.message?.setText(R.string.title_notifications)
+            com.glsebastiany.appbootstrap.R.id.navigation_notifications -> {
+                binding?.message?.setText(com.glsebastiany.appbootstrap.R.string.title_notifications)
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(com.glsebastiany.appbootstrap.R.layout.activity_main)
+        binding = android.databinding.DataBindingUtil.setContentView(this, com.glsebastiany.appbootstrap.R.layout.activity_main);
 
         binding?.navigation?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         binding?.mainList?.adapter = adapter
-        binding?.mainList?.layoutManager = LinearLayoutManager(this)
+        binding?.mainList?.layoutManager = android.support.v7.widget.LinearLayoutManager(this)
 //        binding?.mainList?.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
 
-        presenter.request(MainPresenter.NAME_1)
+        presenter.request(MainPresenter.Companion.NAME_1)
     }
 
     fun onNetworkError(throwable: Throwable) {
-        Toast.makeText(this, throwable.message, Toast.LENGTH_LONG).show()
+        android.widget.Toast.makeText(this, throwable.message, android.widget.Toast.LENGTH_LONG).show()
     }
 
     fun retrieveAdapter(): MainAdapter {

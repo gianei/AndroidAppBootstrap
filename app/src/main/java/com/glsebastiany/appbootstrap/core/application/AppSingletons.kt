@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.application
+package com.glsebastiany.appbootstrap.core.application
 
 import android.content.Context
 
-import com.glsebastiany.appbootstrap.di.ApplicationComponent
-import com.glsebastiany.appbootstrap.di.ApplicationModule
-import com.glsebastiany.appbootstrap.di.DaggerApplicationComponent
+import com.glsebastiany.appbootstrap.core.di.ApplicationComponent
+import com.glsebastiany.appbootstrap.core.di.ApplicationModule
+import com.glsebastiany.appbootstrap.core.di.DaggerApplicationComponent
 
 
 class AppSingletons {

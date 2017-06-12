@@ -15,19 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.splash
+package com.glsebastiany.appbootstrap.domain.usecases
 
-import android.app.Activity
-import android.content.Intent
-import android.os.Bundle
-import com.glsebastiany.appbootstrap.MainActivity
+import com.androidhuman.rxfirebase2.database.ChildEvent
+import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class SplashScreen : Activity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class ListenToSimpleData @Inject
+internal constructor() : BaseUseCase<ChildEvent, Void>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+    @Inject
+    lateinit var repository: SimpleDataRepository
+
+    internal override fun buildUseCaseObservable(aVoid: Void?): Observable<ChildEvent> {
+        return repository.listen()
     }
 }

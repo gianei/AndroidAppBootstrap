@@ -15,21 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.widgets
+package com.glsebastiany.appbootstrap.ui.widgets
 
-import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.ViewGroup
+abstract class RVBaseAdapter : android.support.v7.widget.RecyclerView.Adapter<RVGenericViewHolder>() {
 
-abstract class RVBaseAdapter : RecyclerView.Adapter<RVGenericViewHolder>() {
+    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): RVGenericViewHolder {
+        val layoutInflater = android.view.LayoutInflater.from(parent.context)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RVGenericViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+        val binding = android.databinding.DataBindingUtil.inflate<android.databinding.ViewDataBinding>(
                 layoutInflater, viewType, parent, false)
 
         return RVGenericViewHolder(binding)
@@ -50,7 +43,7 @@ abstract class RVBaseAdapter : RecyclerView.Adapter<RVGenericViewHolder>() {
         return getLayoutIdForPosition(position)
     }
 
-    protected abstract fun getModelObjForPosition(context: Context, position: Int): Any
+    protected abstract fun getModelObjForPosition(context: android.content.Context, position: Int): Any
 
     protected fun getHandlerObjForPosition(position: Int): Any? {
         return null

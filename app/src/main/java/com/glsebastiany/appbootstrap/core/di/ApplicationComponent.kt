@@ -15,12 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.di
+package com.glsebastiany.appbootstrap.core.di
 
 
 import android.content.Context
-import com.glsebastiany.appbootstrap.MainPresenter
-import com.glsebastiany.appbootstrap.application.AppSingletons
+import com.glsebastiany.appbootstrap.ui.main.MainPresenter
 import dagger.Component
 import javax.inject.Singleton
 

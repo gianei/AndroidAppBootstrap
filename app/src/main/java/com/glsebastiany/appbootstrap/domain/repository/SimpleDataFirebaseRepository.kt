@@ -21,11 +21,9 @@ package com.glsebastiany.appbootstrap.domain.repository
 import android.content.Context
 import com.androidhuman.rxfirebase2.database.ChildEvent
 import com.androidhuman.rxfirebase2.database.RxFirebaseDatabase
-import com.glsebastiany.appbootstrap.domain.SimpleData
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Observable
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SimpleDataFirebaseRepository @Inject

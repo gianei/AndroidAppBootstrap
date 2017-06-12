@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.glsebastiany.appbootstrap.domain.interactor
+package com.glsebastiany.appbootstrap.domain.usecases
 
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -25,17 +25,17 @@ import io.reactivex.observers.DisposableObserver
  * This interface represents a execution unit for different use cases (this means any use case
  * in the application should implement this contract).
 
- * By convention each UseCase implementation will return the result using a [DisposableObserver]
+ * By convention each BaseUseCase implementation will return the result using a [DisposableObserver]
  * that will execute its job in a background thread and will post the result in the UI thread.
  */
-abstract class UseCase<T, Params>
+abstract class BaseUseCase<T, Params>
 //  private final CompositeDisposable disposables;
 
 internal constructor(private val threadExecutor: Scheduler, private val postExecutionThread: Scheduler)//    this.disposables = new CompositeDisposable();
 {
 
     /**
-     * Builds an [Observable] which will be used when executing the current [UseCase].
+     * Builds an [Observable] which will be used when executing the current [BaseUseCase].
      */
     internal abstract fun buildUseCaseObservable(params: Params?): Observable<T>
 

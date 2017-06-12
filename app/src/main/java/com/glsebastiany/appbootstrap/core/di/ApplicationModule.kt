@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.di
+package com.glsebastiany.appbootstrap.core.di
 
 import android.content.Context
 import com.glsebastiany.appbootstrap.domain.repository.SimpleDataFirebaseRepository

@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.widgets
+package com.glsebastiany.appbootstrap.ui.widgets
 
 import android.content.Context
 
 abstract class RVListenerBaseAdapter<T> : RVBaseAdapter() {
 
-    val list = mutableListOf<Wrapper<T>>()
+    private val list = mutableListOf<Wrapper<T>>()
 
     override fun getModelObjForPosition(context: Context, position: Int): Any {
         return list[position].data as Any
@@ -82,5 +82,5 @@ abstract class RVListenerBaseAdapter<T> : RVBaseAdapter() {
         return list.indexOfFirst { wrapper -> wrapper.id == previousId }
     }
 
-    class Wrapper<T>(var id: String, var data: T)
+    private class Wrapper<T>(var id: String, var data: T)
 }

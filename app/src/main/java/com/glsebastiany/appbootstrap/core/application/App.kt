@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.application
+package com.glsebastiany.appbootstrap.core.application
 
 import android.app.Application
 

@@ -15,20 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.widgets
+package com.glsebastiany.appbootstrap.core.nucleus5
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
-import com.glsebastiany.appbootstrap.BR
+/**
+ * A class that represents a couple of View and Data.
 
-class RVGenericViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    fun bindModel(model: Any) {
-        binding.setVariable(BR.obj, model)
-        binding.executePendingBindings()
-    }
-
-    fun bindHandler(handler: Any) {
-        binding.setVariable(BR.handler, handler)
-    }
-}
+ * @param <View>
+ * *
+ * @param <T>
+</T></View> */
+class KotlinDelivery<View, T>(val view: View?, val value: T)

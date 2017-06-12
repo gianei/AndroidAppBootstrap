@@ -15,22 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain.interactor
+package com.glsebastiany.appbootstrap.ui.main
 
-import com.androidhuman.rxfirebase2.database.ChildEvent
-import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
+import com.glsebastiany.appbootstrap.data.SimpleData
+import com.glsebastiany.appbootstrap.ui.widgets.RVListenerBaseAdapter
 
-class ListenToSimpleData @Inject
-internal constructor() : UseCase<ChildEvent, Void>(Schedulers.io(), AndroidSchedulers.mainThread()) {
+class MainAdapter : RVListenerBaseAdapter<SimpleData>() {
 
-    @Inject
-    lateinit var repository: SimpleDataRepository
-
-    internal override fun buildUseCaseObservable(aVoid: Void?): Observable<ChildEvent> {
-        return repository.listen()
+    override fun getLayoutIdForPosition(position: Int): Int {
+        return com.glsebastiany.appbootstrap.R.layout.view_sample_layout
     }
+
 }

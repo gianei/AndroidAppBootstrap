@@ -15,15 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap
+package com.glsebastiany.appbootstrap.ui.splash
 
-import com.glsebastiany.appbootstrap.domain.SimpleData
-import com.glsebastiany.appbootstrap.widgets.RVListenerBaseAdapter
+import com.glsebastiany.appbootstrap.ui.main.MainActivity
 
-class MainAdapter : RVListenerBaseAdapter<SimpleData>() {
+class SplashScreen : android.app.Activity() {
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun getLayoutIdForPosition(position: Int): Int {
-        return R.layout.view_sample_layout
+        val intent = android.content.Intent(this, MainActivity::class.java)
+        intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
-
 }

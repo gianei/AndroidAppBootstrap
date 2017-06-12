@@ -15,18 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap
+package com.glsebastiany.appbootstrap.ui.main
 
 import android.os.Bundle
 import com.androidhuman.rxfirebase2.database.ChildAddEvent
 import com.androidhuman.rxfirebase2.database.ChildChangeEvent
 import com.androidhuman.rxfirebase2.database.ChildMoveEvent
 import com.androidhuman.rxfirebase2.database.ChildRemoveEvent
-import com.glsebastiany.appbootstrap.domain.SimpleData
-import com.glsebastiany.appbootstrap.domain.interactor.ListenToSimpleData
-import com.glsebastiany.appbootstrap.nucleus5.KotlinRxPresenter
-import com.glsebastiany.appbootstrap.application.AppSingletons
-import com.glsebastiany.appbootstrap.di.ApplicationComponent
+import com.glsebastiany.appbootstrap.core.di.ApplicationComponent
+import com.glsebastiany.appbootstrap.core.nucleus5.KotlinRxPresenter
+import com.glsebastiany.appbootstrap.data.SimpleData
+import com.glsebastiany.appbootstrap.domain.usecases.ListenToSimpleData
 import io.reactivex.functions.Consumer
 import nucleus5.presenter.Factory
 import javax.inject.Inject
@@ -57,7 +56,7 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
                     val view = delivery.view
 
                     if (view != null)
-                        when (event){
+                        when (event) {
                             is ChildAddEvent -> {
                                 val data = event.dataSnapshot().getValue(SimpleData::class.java)
                                 data?.let { view.adapter.add(event.dataSnapshot().key, event.previousChildName(), it) }

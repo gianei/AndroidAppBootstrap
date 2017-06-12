@@ -15,9 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain
+package com.glsebastiany.appbootstrap.core.nucleus5
 
-class SimpleData {
+import io.reactivex.Observable
+import io.reactivex.ObservableSource
+import io.reactivex.ObservableTransformer
 
-    var name: String? = null
+class KotlinTransformer<View, T>(private val view: Observable<View?>) : ObservableTransformer<T, KotlinDelivery<View?, T>> {
+
+    override fun apply(observable: Observable<T>): ObservableSource<KotlinDelivery<View?, T>> {
+        return observable.map {
+            data -> KotlinDelivery<View?, T>(view.blockingFirst(), data)
+        }
+    }
+
 }

@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.nucleus5
+package com.glsebastiany.appbootstrap.core.nucleus5
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
-import com.glsebastiany.appbootstrap.application.AppSingletons
-import com.glsebastiany.appbootstrap.di.ApplicationComponent
+import com.glsebastiany.appbootstrap.core.application.AppSingletons
+import com.glsebastiany.appbootstrap.core.di.ApplicationComponent
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
