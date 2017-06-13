@@ -15,19 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain.repository
+package com.glsebastiany.appbootstrap.domain.repository.firebase
 
 
 import android.content.Context
 import com.androidhuman.rxfirebase2.database.ChildEvent
 import com.androidhuman.rxfirebase2.database.RxFirebaseDatabase
+import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class SimpleDataFirebaseRepository @Inject
-constructor(private val context: Context ) : SimpleDataRepository {
+constructor(private val context: Context) : SimpleDataRepository {
 
     init {
         FirebaseApp.initializeApp(context)

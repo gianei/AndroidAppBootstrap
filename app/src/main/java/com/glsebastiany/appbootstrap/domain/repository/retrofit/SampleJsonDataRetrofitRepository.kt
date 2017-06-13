@@ -15,34 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain.repository
+package com.glsebastiany.appbootstrap.domain.repository.retrofit
 
-import android.content.Context
 import com.glsebastiany.appbootstrap.data.SampleJsonData
+import com.glsebastiany.appbootstrap.domain.repository.SampleJsonDataRepository
 import io.reactivex.Observable
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 
 class SampleJsonDataRetrofitRepository @Inject
-constructor(private val context: Context) : SampleJsonDataRepository {
+constructor() : SampleJsonDataRepository {
 
-    var rxAdapter = RxJava2CallAdapterFactory.create()
+    @Inject
+    lateinit var retrofitRepository: SampleJsonDataRepository
 
-    val BASE_URL = "https://appbootsrap-516ea.firebaseio.com"
-    var retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(rxAdapter)
-            .build()
-
-    override fun getData(): Observable<SampleJsonData> {
-        val apiService = retrofit.create(MyApiEndpointInterface::class.java)
-        return apiService.getUser("id0")
-
+    override fun getData(id: String): Observable<SampleJsonData> {
+        return retrofitRepository.getData(id)
     }
-
 
 }
