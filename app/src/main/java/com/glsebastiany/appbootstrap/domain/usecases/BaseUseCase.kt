@@ -37,9 +37,9 @@ internal constructor(private val threadExecutor: Scheduler, private val postExec
     /**
      * Builds an [Observable] which will be used when executing the current [BaseUseCase].
      */
-    internal abstract fun buildUseCaseObservable(params: Params?): Observable<T>
+    internal abstract fun buildUseCaseObservable(params: Params): Observable<T>
 
-    fun execute(params: Params?): Observable<T> {
+    fun execute(params: Params): Observable<T> {
         return this.buildUseCaseObservable(params)
                 .subscribeOn(threadExecutor)
                 .observeOn(postExecutionThread)

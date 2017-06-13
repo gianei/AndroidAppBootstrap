@@ -44,6 +44,7 @@ dependencies androidSupport
 dependencies dagger
 dependencies rx
 dependencies firebase
+dependencies retrofit
 dependencies testLibraries
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

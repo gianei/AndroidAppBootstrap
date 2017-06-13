@@ -73,6 +73,13 @@ ext {
         compile "com.google.firebase:firebase-database:$firebaseVersion"
     }
 
+    retrofitVersion = '2.3.0'
+    retrofit = {
+        compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+        compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    }
+
     gradleVersion = project.extensions.extraProperties.get('gradleVersion')
     androidBind = {
         kapt "com.android.databinding:compiler:$gradleVersion"

@@ -36,7 +36,7 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
     private var name = DEFAULT_NAME
 
     @Inject
-    lateinit  var listenToSimpleData: ListenToSimpleData
+    lateinit var listenToSimpleData: ListenToSimpleData
 
     override fun inject(injector: ApplicationComponent) {
         injector.inject(this)
@@ -50,7 +50,7 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
 
         restartableWithView(
                 REQUEST_ITEMS,
-                Factory { listenToSimpleData.execute(null) },
+                Factory { listenToSimpleData.execute(Any()) },
                 Consumer { delivery ->
                     val event = delivery.value
                     val view = delivery.view

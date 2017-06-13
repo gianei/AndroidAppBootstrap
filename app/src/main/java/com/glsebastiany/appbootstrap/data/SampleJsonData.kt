@@ -15,22 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain.usecases
+package com.glsebastiany.appbootstrap.data
 
-import com.androidhuman.rxfirebase2.database.ChildEvent
-import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
-
-class ListenToSimpleData @Inject
-internal constructor() : BaseUseCase<ChildEvent, Any>(Schedulers.io(), AndroidSchedulers.mainThread()) {
-
-    @Inject
-    lateinit var repository: SimpleDataRepository
-
-    internal override fun buildUseCaseObservable(params: Any): Observable<ChildEvent> {
-        return repository.listen()
-    }
+class SampleJsonData {
+    var name: String? = null
 }

@@ -17,10 +17,13 @@
 
 package com.glsebastiany.appbootstrap.ui.main
 
+import com.glsebastiany.appbootstrap.R
 import com.glsebastiany.appbootstrap.databinding.ActivityMainBinding
+import com.glsebastiany.appbootstrap.ui.main.dashboard.DashboardFragment
+import nucleus5.factory.RequiresPresenter
 import nucleus5.view.NucleusActivity
 
-@nucleus5.factory.RequiresPresenter(MainPresenter::class)
+@RequiresPresenter(MainPresenter::class)
 class MainActivity : NucleusActivity<MainPresenter>() {
 
     var binding: ActivityMainBinding? = null
@@ -57,6 +60,13 @@ class MainActivity : NucleusActivity<MainPresenter>() {
 //        binding?.mainList?.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
 
         presenter.request(MainPresenter.Companion.NAME_1)
+
+        if (savedInstanceState == null) {
+            val fragment = DashboardFragment()
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit()
+        }
     }
 
     fun onNetworkError(throwable: Throwable) {

@@ -18,8 +18,11 @@
 package com.glsebastiany.appbootstrap.core.di
 
 import android.content.Context
-import com.glsebastiany.appbootstrap.domain.repository.SimpleDataFirebaseRepository
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRetrofitRepository
+import com.glsebastiany.appbootstrap.domain.repository.SampleJsonDataRepository
+import com.glsebastiany.appbootstrap.domain.repository.firebase.SimpleDataFirebaseRepository
 import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.RetrofitFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -45,6 +48,12 @@ class ApplicationModule(context: Context) {
     @Singleton
     internal fun simpleDataRepository(repository: SimpleDataFirebaseRepository): SimpleDataRepository {
         return repository
+    }
+
+    @Provides
+    @Singleton
+    internal fun jsonDataRepository(): SampleJsonDataRepository {
+        return RetrofitFactory.create()
     }
 
 

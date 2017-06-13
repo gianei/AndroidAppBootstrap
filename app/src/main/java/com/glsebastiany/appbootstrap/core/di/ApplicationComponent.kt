@@ -20,6 +20,7 @@ package com.glsebastiany.appbootstrap.core.di
 
 import android.content.Context
 import com.glsebastiany.appbootstrap.ui.main.MainPresenter
+import com.glsebastiany.appbootstrap.ui.main.dashboard.DashboardPresenter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -35,4 +36,6 @@ interface ApplicationComponent {
 
     // Calls like this are needed for every point of injection
     fun inject(mainPresenter: MainPresenter)
+
+    fun inject(mainPresenter: DashboardPresenter)
 }
