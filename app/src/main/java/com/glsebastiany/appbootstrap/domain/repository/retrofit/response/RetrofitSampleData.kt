@@ -17,7 +17,6 @@
 
 package com.glsebastiany.appbootstrap.domain.repository.retrofit.response
 
-class RetrofitSimpleData {
-
+class RetrofitSampleData {
     var name: String? = null
 }
