@@ -15,18 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain.repository
+package com.glsebastiany.appbootstrap.model
 
-import com.glsebastiany.appbootstrap.data.SampleJsonData
-import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Path
-
-
-interface SampleJsonDataRepository {
-
-    @GET("/sampleJsonData/{id}.json")
-    fun getData(@Path("id") id: String): Observable<SampleJsonData>
-
-
+class ListenSampleData {
+    var name: String? = null
 }

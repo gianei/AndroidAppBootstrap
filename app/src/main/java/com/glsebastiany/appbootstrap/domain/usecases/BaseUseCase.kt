@@ -28,7 +28,7 @@ import io.reactivex.observers.DisposableObserver
  * By convention each BaseUseCase implementation will return the result using a [DisposableObserver]
  * that will execute its job in a background thread and will post the result in the UI thread.
  */
-abstract class BaseUseCase<T, Params>
+abstract class BaseUseCase<RepoModel, AppModel, Params>
 //  private final CompositeDisposable disposables;
 
 internal constructor(private val threadExecutor: Scheduler, private val postExecutionThread: Scheduler)//    this.disposables = new CompositeDisposable();
@@ -37,10 +37,13 @@ internal constructor(private val threadExecutor: Scheduler, private val postExec
     /**
      * Builds an [Observable] which will be used when executing the current [BaseUseCase].
      */
-    internal abstract fun buildUseCaseObservable(params: Params): Observable<T>
+    internal abstract fun buildUseCaseObservable(params: Params): Observable<RepoModel>
 
-    fun execute(params: Params): Observable<T> {
+    internal abstract fun map(repoModel: RepoModel): AppModel
+
+    fun execute(params: Params): Observable<AppModel> {
         return this.buildUseCaseObservable(params)
+                .map(this::map)
                 .subscribeOn(threadExecutor)
                 .observeOn(postExecutionThread)
     }

@@ -24,8 +24,8 @@ import com.androidhuman.rxfirebase2.database.ChildMoveEvent
 import com.androidhuman.rxfirebase2.database.ChildRemoveEvent
 import com.glsebastiany.appbootstrap.core.di.ApplicationComponent
 import com.glsebastiany.appbootstrap.core.nucleus5.KotlinRxPresenter
-import com.glsebastiany.appbootstrap.data.SimpleData
-import com.glsebastiany.appbootstrap.domain.usecases.ListenToSimpleData
+import com.glsebastiany.appbootstrap.domain.usecases.SampleListenUseCase
+import com.glsebastiany.appbootstrap.model.ListenSampleData
 import io.reactivex.functions.Consumer
 import nucleus5.presenter.Factory
 import javax.inject.Inject
@@ -36,7 +36,7 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
     private var name = DEFAULT_NAME
 
     @Inject
-    lateinit var listenToSimpleData: ListenToSimpleData
+    lateinit var listenSampleData: SampleListenUseCase
 
     override fun inject(injector: ApplicationComponent) {
         injector.inject(this)
@@ -50,7 +50,7 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
 
         restartableWithView(
                 REQUEST_ITEMS,
-                Factory { listenToSimpleData.execute(Any()) },
+                Factory { listenSampleData.execute(Any()) },
                 Consumer { delivery ->
                     val event = delivery.value
                     val view = delivery.view
@@ -58,12 +58,12 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
                     if (view != null)
                         when (event) {
                             is ChildAddEvent -> {
-                                val data = event.dataSnapshot().getValue(SimpleData::class.java)
+                                val data = event.dataSnapshot().getValue(ListenSampleData::class.java)
                                 data?.let { view.adapter.add(event.dataSnapshot().key, event.previousChildName(), it) }
                             }
 
                             is ChildChangeEvent -> {
-                                val data = event.dataSnapshot().getValue(SimpleData::class.java)
+                                val data = event.dataSnapshot().getValue(ListenSampleData::class.java)
                                 data?.let { view.adapter.change(event.dataSnapshot().key, it) }
                             }
 

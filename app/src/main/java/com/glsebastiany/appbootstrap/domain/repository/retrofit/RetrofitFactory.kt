@@ -17,7 +17,6 @@
 
 package com.glsebastiany.appbootstrap.domain.repository.retrofit
 
-import com.glsebastiany.appbootstrap.domain.repository.SampleJsonDataRepository
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

@@ -15,21 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.domain.repository.retrofit
+package com.glsebastiany.appbootstrap.domain.repository.retrofit.response
 
-import com.glsebastiany.appbootstrap.domain.repository.retrofit.response.RetrofitSampleData
-import io.reactivex.Observable
-import javax.inject.Inject
+class RetrofitSimpleData {
 
-
-class SampleJsonDataRetrofitRepository @Inject
-constructor() : SampleJsonDataRepository {
-
-    @Inject
-    lateinit var retrofitRepository: SampleJsonDataRepository
-
-    override fun getData(id: String): Observable<RetrofitSampleData> {
-        return retrofitRepository.getData(id)
-    }
-
+    var name: String? = null
 }

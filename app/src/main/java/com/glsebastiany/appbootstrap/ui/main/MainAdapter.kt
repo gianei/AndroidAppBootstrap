@@ -17,10 +17,10 @@
 
 package com.glsebastiany.appbootstrap.ui.main
 
-import com.glsebastiany.appbootstrap.data.SimpleData
+import com.glsebastiany.appbootstrap.model.ListenSampleData
 import com.glsebastiany.appbootstrap.ui.widgets.RVListenerBaseAdapter
 
-class MainAdapter : RVListenerBaseAdapter<SimpleData>() {
+class MainAdapter : RVListenerBaseAdapter<ListenSampleData>() {
 
     override fun getLayoutIdForPosition(position: Int): Int {
         return com.glsebastiany.appbootstrap.R.layout.view_sample_layout

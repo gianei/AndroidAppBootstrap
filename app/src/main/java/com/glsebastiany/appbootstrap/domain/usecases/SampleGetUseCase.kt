@@ -17,21 +17,28 @@
 
 package com.glsebastiany.appbootstrap.domain.usecases
 
-import com.glsebastiany.appbootstrap.data.SampleJsonData
-import com.glsebastiany.appbootstrap.domain.repository.SampleJsonDataRepository
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRepository
+import com.glsebastiany.appbootstrap.model.GetSampleData
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.response.RetrofitSampleData
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GetSampleJson @Inject
-internal constructor(): BaseUseCase<SampleJsonData, GetSampleJson.Params>(Schedulers.io(), AndroidSchedulers.mainThread()) {
+class SampleGetUseCase @Inject
+internal constructor(): BaseUseCase<RetrofitSampleData, GetSampleData, SampleGetUseCase.Params>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
     @Inject
     lateinit var repository: SampleJsonDataRepository
 
-    override fun buildUseCaseObservable(params: Params): Observable<SampleJsonData> {
+    override fun buildUseCaseObservable(params: Params): Observable<RetrofitSampleData> {
         return repository.getData(params.id)
+    }
+
+    override fun map(repoModel: RetrofitSampleData): GetSampleData {
+        val model = GetSampleData("App Model")
+        model.name = repoModel.name
+        return model
     }
 
     class Params(val id:String)

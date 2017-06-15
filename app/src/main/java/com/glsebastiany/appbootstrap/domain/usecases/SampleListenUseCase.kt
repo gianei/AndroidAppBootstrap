@@ -18,19 +18,24 @@
 package com.glsebastiany.appbootstrap.domain.usecases
 
 import com.androidhuman.rxfirebase2.database.ChildEvent
-import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
+import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ListenToSimpleData @Inject
-internal constructor() : BaseUseCase<ChildEvent, Any>(Schedulers.io(), AndroidSchedulers.mainThread()) {
+class SampleListenUseCase @Inject
+internal constructor() : BaseUseCase<ChildEvent, ChildEvent, Any>(Schedulers.io(), AndroidSchedulers.mainThread()) {
 
     @Inject
-    lateinit var repository: SimpleDataRepository
+    lateinit var repository: SampleDataRepository
 
-    internal override fun buildUseCaseObservable(params: Any): Observable<ChildEvent> {
+    override fun buildUseCaseObservable(params: Any): Observable<ChildEvent> {
         return repository.listen()
     }
+
+    override fun map(repoModel: ChildEvent): ChildEvent {
+        return repoModel
+    }
+
 }

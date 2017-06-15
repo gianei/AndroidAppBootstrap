@@ -15,9 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.data
+package com.glsebastiany.appbootstrap.domain.repository.firebase
 
-class SimpleData {
+import com.androidhuman.rxfirebase2.database.ChildEvent
+import io.reactivex.Observable
 
-    var name: String? = null
+interface SampleDataRepository {
+
+    fun listen(): Observable<ChildEvent>
+
 }

@@ -23,7 +23,7 @@
     <data>
         <variable
             name="obj"
-            type="com.glsebastiany.appbootstrap.data.SimpleData" />
+            type="com.glsebastiany.appbootstrap.model.ListenSampleData" />
 
         <variable
             name="handler"

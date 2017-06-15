@@ -21,14 +21,13 @@ package com.glsebastiany.appbootstrap.domain.repository.firebase
 import android.content.Context
 import com.androidhuman.rxfirebase2.database.ChildEvent
 import com.androidhuman.rxfirebase2.database.RxFirebaseDatabase
-import com.glsebastiany.appbootstrap.domain.repository.SimpleDataRepository
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class SimpleDataFirebaseRepository @Inject
-constructor(private val context: Context) : SimpleDataRepository {
+class SampleDataFirebaseRepository @Inject
+constructor(private val context: Context) : SampleDataRepository {
 
     init {
         FirebaseApp.initializeApp(context)

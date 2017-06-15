@@ -20,7 +20,8 @@ package com.glsebastiany.appbootstrap.ui.main.dashboard
 import android.os.Bundle
 import com.glsebastiany.appbootstrap.core.di.ApplicationComponent
 import com.glsebastiany.appbootstrap.core.nucleus5.KotlinRxPresenter
-import com.glsebastiany.appbootstrap.domain.usecases.GetSampleJson
+import com.glsebastiany.appbootstrap.domain.usecases.SampleGetUseCase
+import com.glsebastiany.appbootstrap.domain.usecases.SampleListenUseCase
 import io.reactivex.functions.Consumer
 import nucleus5.presenter.Factory
 import javax.inject.Inject
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class DashboardPresenter : KotlinRxPresenter<DashboardFragment>() {
 
     @Inject
-    lateinit var useCase : GetSampleJson
+    lateinit var useCase : SampleGetUseCase
 
     override fun inject(injector: ApplicationComponent) {
         injector.inject(this)
@@ -40,12 +41,12 @@ class DashboardPresenter : KotlinRxPresenter<DashboardFragment>() {
 
         restartableWithView(
                 OBSERVABLE_ID,
-                Factory { useCase.execute(GetSampleJson.Params("id0")) },
+                Factory { useCase.execute(SampleGetUseCase.Params("id0")) },
                 Consumer { delivery ->
                     val value = delivery.value
                     val view = delivery.view
 
-                    view?.updateText(value.name)
+                    view?.updateText(value.completeName)
                 },
                 Consumer { throwable -> println(throwable) })
 
