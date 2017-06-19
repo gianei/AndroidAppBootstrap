@@ -19,7 +19,7 @@ package com.glsebastiany.appbootstrap.core.di
 
 
 import android.content.Context
-import com.glsebastiany.appbootstrap.ui.main.MainPresenter
+import com.glsebastiany.appbootstrap.ui.main.home.HomePresenter
 import com.glsebastiany.appbootstrap.ui.main.dashboard.DashboardPresenter
 import dagger.Component
 import javax.inject.Singleton
@@ -35,7 +35,6 @@ interface ApplicationComponent {
     fun context(): Context
 
     // Calls like this are needed for every point of injection
-    fun inject(mainPresenter: MainPresenter)
-
     fun inject(mainPresenter: DashboardPresenter)
+    fun inject(homePresenter: HomePresenter)
 }

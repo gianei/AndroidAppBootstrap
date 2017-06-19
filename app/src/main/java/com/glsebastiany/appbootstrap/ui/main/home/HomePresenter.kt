@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.ui.main
+package com.glsebastiany.appbootstrap.ui.main.home
 
 import android.os.Bundle
 import com.androidhuman.rxfirebase2.database.ChildAddEvent
@@ -31,7 +31,7 @@ import nucleus5.presenter.Factory
 import javax.inject.Inject
 
 
-class MainPresenter : KotlinRxPresenter<MainActivity>() {
+class HomePresenter : KotlinRxPresenter<HomeFragment>() {
 
     private var name = DEFAULT_NAME
 
@@ -100,6 +100,6 @@ class MainPresenter : KotlinRxPresenter<MainActivity>() {
 
         private val REQUEST_ITEMS = 1
 
-        private val NAME_KEY = MainPresenter::class.java.name + "#name"
+        private val NAME_KEY = HomePresenter::class.java.name + "#name"
     }
 }

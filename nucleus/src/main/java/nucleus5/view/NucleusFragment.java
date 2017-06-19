@@ -24,8 +24,8 @@
 
 package nucleus5.view;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import nucleus5.factory.PresenterFactory;
 import nucleus5.factory.ReflectionPresenterFactory;

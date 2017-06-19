@@ -17,65 +17,90 @@
 
 package com.glsebastiany.appbootstrap.ui.main
 
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import com.glsebastiany.appbootstrap.R
 import com.glsebastiany.appbootstrap.databinding.ActivityMainBinding
 import com.glsebastiany.appbootstrap.ui.main.dashboard.DashboardFragment
-import nucleus5.factory.RequiresPresenter
-import nucleus5.view.NucleusActivity
+import com.glsebastiany.appbootstrap.ui.main.home.HomeFragment
+import com.glsebastiany.appbootstrap.ui.main.dashboard.NotificationsFragment
 
-@RequiresPresenter(MainPresenter::class)
-class MainActivity : NucleusActivity<MainPresenter>() {
+class MainActivity : AppCompatActivity() {
 
     var binding: ActivityMainBinding? = null
-
-    val adapter = MainAdapter()
-
-    private val mOnNavigationItemSelectedListener = android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            com.glsebastiany.appbootstrap.R.id.navigation_home -> {
-                binding?.message?.setText(com.glsebastiany.appbootstrap.R.string.title_home)
-                return@OnNavigationItemSelectedListener true
-            }
-            com.glsebastiany.appbootstrap.R.id.navigation_dashboard -> {
-                binding?.message?.setText(com.glsebastiany.appbootstrap.R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            com.glsebastiany.appbootstrap.R.id.navigation_notifications -> {
-                binding?.message?.setText(com.glsebastiany.appbootstrap.R.string.title_notifications)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.glsebastiany.appbootstrap.R.layout.activity_main)
         binding = android.databinding.DataBindingUtil.setContentView(this, com.glsebastiany.appbootstrap.R.layout.activity_main);
 
-        binding?.navigation?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        setupBottomBarNavigation()
+    }
 
-        binding?.mainList?.adapter = adapter
-        binding?.mainList?.layoutManager = android.support.v7.widget.LinearLayoutManager(this)
-//        binding?.mainList?.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+    private fun setupBottomBarNavigation() {
+        binding?.navigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        binding?.viewPager?.adapter = MyPagerAdapter(supportFragmentManager)
+        binding?.viewPager?.addOnPageChangeListener(MyPageChangeListener(binding?.navigation))
+    }
 
-        presenter.request(MainPresenter.Companion.NAME_1)
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                binding?.viewPager?.setCurrentItem(0, true)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_dashboard -> {
+                binding?.viewPager?.setCurrentItem(1, true)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_notifications -> {
+                binding?.viewPager?.setCurrentItem(2, true)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+    }
 
-        if (savedInstanceState == null) {
-            val fragment = DashboardFragment()
-            fragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit()
+    private class MyPageChangeListener(val navigation: BottomNavigationView?) : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {}
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+        override fun onPageSelected(position: Int) {
+            when(position){
+                0 -> {
+                    navigation?.selectedItemId = R.id.navigation_home
+                }
+                1 -> {
+                    navigation?.selectedItemId = R.id.navigation_dashboard
+                }
+                2 -> {
+                    navigation?.selectedItemId = R.id.navigation_notifications
+                }
+            }
         }
     }
 
-    fun onNetworkError(throwable: Throwable) {
-        android.widget.Toast.makeText(this, throwable.message, android.widget.Toast.LENGTH_LONG).show()
-    }
+    private class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    fun retrieveAdapter(): MainAdapter {
-        return adapter
-    }
+        val fragments = arrayListOf(
+                DashboardFragment(),
+                HomeFragment(),
+                NotificationsFragment()
+        )
 
+        override fun getItem(position: Int): Fragment {
+            return fragments.get(position)
+        }
+
+        override fun getCount(): Int {
+            return fragments.count()
+        }
+
+    }
 
 }

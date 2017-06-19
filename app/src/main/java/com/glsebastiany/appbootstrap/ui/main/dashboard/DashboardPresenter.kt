@@ -21,7 +21,6 @@ import android.os.Bundle
 import com.glsebastiany.appbootstrap.core.di.ApplicationComponent
 import com.glsebastiany.appbootstrap.core.nucleus5.KotlinRxPresenter
 import com.glsebastiany.appbootstrap.domain.usecases.SampleGetUseCase
-import com.glsebastiany.appbootstrap.domain.usecases.SampleListenUseCase
 import io.reactivex.functions.Consumer
 import nucleus5.presenter.Factory
 import javax.inject.Inject

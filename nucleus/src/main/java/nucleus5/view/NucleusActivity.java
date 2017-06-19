@@ -24,9 +24,9 @@
 
 package nucleus5.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 
 import nucleus5.factory.PresenterFactory;
 import nucleus5.factory.ReflectionPresenterFactory;
@@ -39,7 +39,7 @@ import nucleus5.presenter.Presenter;
  *
  * @param <P> a type of presenter to return with {@link #getPresenter}.
  */
-public abstract class NucleusActivity<P extends Presenter> extends Activity implements ViewWithPresenter<P> {
+public abstract class NucleusActivity<P extends Presenter> extends AppCompatActivity implements ViewWithPresenter<P> {
 
     private static final String PRESENTER_STATE_KEY = "presenter_state";
 
