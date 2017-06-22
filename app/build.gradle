@@ -35,10 +35,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies androidBind
 dependencies androidSupport
 dependencies dagger
@@ -53,4 +49,5 @@ dependencies {
 }
 
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
