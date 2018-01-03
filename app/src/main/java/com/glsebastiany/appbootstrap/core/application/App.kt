@@ -37,6 +37,8 @@ class App : Application(){
 
         configureTimber()
 
+        //TODO add leak canary
+
     }
 
     private fun configureTimber() {

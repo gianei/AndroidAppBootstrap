@@ -53,7 +53,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
                         { result ->
                             sampleData.value = result.amount.toString()
                         },
-                        Timber::e //TODO configure timber logging
+                        Timber::e //TODO add generic error handler for Connectivity error
                 )
     }
 

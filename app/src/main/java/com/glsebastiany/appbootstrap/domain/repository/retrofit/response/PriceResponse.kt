@@ -18,5 +18,5 @@
 package com.glsebastiany.appbootstrap.domain.repository.retrofit.response
 
 class PriceResponse {
-    var priceMapping: HashMap<String, Double> = HashMap() // TODO this is not mapping
+    var priceMapping: HashMap<String, Double> = HashMap()
 }

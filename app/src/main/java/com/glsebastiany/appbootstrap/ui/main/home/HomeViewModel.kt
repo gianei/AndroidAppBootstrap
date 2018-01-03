@@ -52,7 +52,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                         { result ->
                             useCaseChildEvents.value = result
                         },
-                        Timber::e
+                        Timber::e //TODO add generic error handler for Connectivity error
                 )
 
     }
