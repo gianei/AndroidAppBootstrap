@@ -18,12 +18,6 @@
 package com.glsebastiany.appbootstrap.core.di
 
 import android.content.Context
-import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRepository
-import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataFirebaseRepository
-import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataRepository
-import com.glsebastiany.appbootstrap.domain.repository.retrofit.CriptoCompareApi
-import com.glsebastiany.appbootstrap.domain.repository.retrofit.RetrofitFactory
-import com.glsebastiany.appbootstrap.domain.usecases.CryptoCompareUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

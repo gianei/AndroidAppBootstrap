@@ -43,6 +43,7 @@ dependencies firebase
 dependencies retrofit
 dependencies testLibraries
 dependencies timber
+dependencies stetho
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"

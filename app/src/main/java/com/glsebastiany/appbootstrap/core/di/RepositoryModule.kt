@@ -20,8 +20,8 @@ package com.glsebastiany.appbootstrap.core.di
 import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataFirebaseRepository
 import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataRepository
 import com.glsebastiany.appbootstrap.domain.repository.retrofit.CriptoCompareApi
-import com.glsebastiany.appbootstrap.domain.repository.retrofit.RetrofitFactory
 import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRepository
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.factory.RetrofitFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -39,11 +39,10 @@ class RepositoryModule() {
 
     @Provides
     @Singleton
-    internal fun jsonDataRepository(): SampleJsonDataRepository = RetrofitFactory.create()
+    internal fun jsonDataRepository(retrofitFactory: RetrofitFactory): SampleJsonDataRepository = retrofitFactory.createRetrofitService(SampleJsonDataRepository::class.java)
 
     @Provides
     @Singleton
-    internal fun cryptoCompareRepository(): CriptoCompareApi = RetrofitFactory.createCryptoCompare()
-
+    internal fun cryptoCompareRepository(retrofitFactory: RetrofitFactory): CriptoCompareApi = retrofitFactory.createRetrofitService(CriptoCompareApi::class.java)
 
 }
