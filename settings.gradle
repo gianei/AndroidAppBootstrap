@@ -1,1 +1,1 @@
-include ':app', ':nucleus', ':nucleus-test-kit'
+include ':app'

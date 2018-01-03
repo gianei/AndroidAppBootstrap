@@ -15,24 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.core.application
+package com.glsebastiany.appbootstrap.domain.repository.retrofit
 
-import android.app.Application
-import com.glsebastiany.appbootstrap.BuildConfig
-import timber.log.Timber
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.response.PriceResponse
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.response.RetrofitSampleData
+import io.reactivex.Observable
+import retrofit2.http.*
 
-class App : Application(){
 
-    override fun onCreate() {
-        super.onCreate()
+interface CriptoCompareApi {
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
+    @GET("/data/price")
+    fun getPrice(@Query("fsym") from: String, @Query("tsyms") to: String): Observable<PriceResponse>
 
-        AppSingletons.start(this)
-    }
+
 }
-
-//fun Context.getApplicationComponent() : ApplicationComponent =
-//        (this.applicationContext as App).applicationComponent

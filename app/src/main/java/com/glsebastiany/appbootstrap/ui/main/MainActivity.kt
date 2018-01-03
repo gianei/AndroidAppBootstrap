@@ -27,7 +27,7 @@ import com.glsebastiany.appbootstrap.R
 import com.glsebastiany.appbootstrap.databinding.ActivityMainBinding
 import com.glsebastiany.appbootstrap.ui.main.dashboard.DashboardFragment
 import com.glsebastiany.appbootstrap.ui.main.home.HomeFragment
-import com.glsebastiany.appbootstrap.ui.main.dashboard.NotificationsFragment
+import com.glsebastiany.appbootstrap.ui.main.notifications.NotificationsFragment
 
 class MainActivity : AppCompatActivity() {
 

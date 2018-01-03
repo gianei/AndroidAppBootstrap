@@ -38,5 +38,18 @@ class RetrofitFactory {
 
             return retrofit.create(SampleJsonDataRepository::class.java)
         }
+
+
+        fun createCryptoCompare(): CriptoCompareApi {
+            val rxAdapter = RxJava2CallAdapterFactory.create()
+
+            val retrofit = Retrofit.Builder()
+                    .baseUrl("https://min-api.cryptocompare.com")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(rxAdapter)
+                    .build()
+
+            return retrofit.create(CriptoCompareApi::class.java)
+        }
     }
 }

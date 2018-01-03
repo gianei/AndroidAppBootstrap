@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.ui.main.dashboard
+package com.glsebastiany.appbootstrap.ui.main.notifications
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -24,10 +24,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.glsebastiany.appbootstrap.R
-import com.glsebastiany.appbootstrap.databinding.FragmentDashboardBinding
 import com.glsebastiany.appbootstrap.databinding.FragmentNotificationsBinding
 
-//@RequiresPresenter(DashboardPresenter::class)
 class NotificationsFragment : Fragment() {
 
     lateinit var binding: FragmentNotificationsBinding
@@ -37,7 +35,6 @@ class NotificationsFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentNotificationsBinding>(
                 inflater, R.layout.fragment_notifications, container, false)
 
-//        presenter.request()
 
         return binding.root
     }

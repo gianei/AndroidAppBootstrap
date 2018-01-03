@@ -15,24 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.glsebastiany.appbootstrap.core.application
+package com.glsebastiany.appbootstrap.domain.repository.retrofit.response
 
-import android.app.Application
-import com.glsebastiany.appbootstrap.BuildConfig
-import timber.log.Timber
-
-class App : Application(){
-
-    override fun onCreate() {
-        super.onCreate()
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
-        AppSingletons.start(this)
-    }
+class PriceResponse {
+    var priceMapping: HashMap<String, Double> = HashMap() // TODO this is not mapping
 }
-
-//fun Context.getApplicationComponent() : ApplicationComponent =
-//        (this.applicationContext as App).applicationComponent

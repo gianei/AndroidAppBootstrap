@@ -17,43 +17,64 @@
 
 package com.glsebastiany.appbootstrap.ui.main.home
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.androidhuman.rxfirebase2.database.ChildAddEvent
+import com.androidhuman.rxfirebase2.database.ChildChangeEvent
+import com.androidhuman.rxfirebase2.database.ChildMoveEvent
+import com.androidhuman.rxfirebase2.database.ChildRemoveEvent
 import com.glsebastiany.appbootstrap.R
 import com.glsebastiany.appbootstrap.databinding.FragmentHomeBinding
-import nucleus5.factory.RequiresPresenter
-import nucleus5.view.NucleusFragment
+import com.glsebastiany.appbootstrap.model.ListenSampleData
 
-@RequiresPresenter(HomePresenter::class)
-class HomeFragment : NucleusFragment<HomePresenter>() {
+
+class HomeFragment : Fragment() {
 
     val adapter = HomeAdapter()
 
     lateinit var binding: FragmentHomeBinding
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate<FragmentHomeBinding>(
                 inflater, R.layout.fragment_home, container, false)
 
-        presenter.request(HomePresenter.NAME_1)
+        binding.mainList?.adapter = adapter
+        binding.mainList?.layoutManager = android.support.v7.widget.LinearLayoutManager(context)
 
-        binding?.mainList?.adapter = adapter
-        binding?.mainList?.layoutManager = android.support.v7.widget.LinearLayoutManager(context)
-//        binding?.mainList?.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+        homeViewModel.getLiveData().observe(this, Observer { event ->
+            //TODO make proper binding using Data Binding
+            when (event) {
+                is ChildAddEvent -> {
+                    val data = event.dataSnapshot().getValue(ListenSampleData::class.java)
+                    data?.let { adapter.add(event.dataSnapshot().key, event.previousChildName(), it) }
+                }
+
+                is ChildChangeEvent -> {
+                    val data = event.dataSnapshot().getValue(ListenSampleData::class.java)
+                    data?.let { adapter.change(event.dataSnapshot().key, it) }
+                }
+
+                is ChildRemoveEvent -> {
+                    adapter.remove(event.dataSnapshot().key)
+                }
+
+                is ChildMoveEvent -> {
+                    event.previousChildName()?.let { adapter.move(event.dataSnapshot().key, it) }
+                }
+            }
+        })
 
         return binding.root
-    }
-
-    fun onNetworkError(throwable: Throwable) {
-        android.widget.Toast.makeText(context, throwable.message, android.widget.Toast.LENGTH_LONG).show()
-    }
-
-    fun retrieveAdapter(): HomeAdapter {
-        return adapter
     }
 
 }

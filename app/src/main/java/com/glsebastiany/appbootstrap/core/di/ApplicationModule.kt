@@ -21,7 +21,9 @@ import android.content.Context
 import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRepository
 import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataFirebaseRepository
 import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataRepository
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.CriptoCompareApi
 import com.glsebastiany.appbootstrap.domain.repository.retrofit.RetrofitFactory
+import com.glsebastiany.appbootstrap.domain.usecases.CryptoCompareUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -53,6 +55,12 @@ class ApplicationModule(context: Context) {
     @Singleton
     internal fun jsonDataRepository(): SampleJsonDataRepository {
         return RetrofitFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    internal fun cryptoCompareRepository(): CriptoCompareApi {
+        return RetrofitFactory.createCryptoCompare()
     }
 
 

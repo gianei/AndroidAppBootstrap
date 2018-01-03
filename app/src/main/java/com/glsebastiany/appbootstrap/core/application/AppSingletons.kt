@@ -33,29 +33,29 @@ class AppSingletons {
 
         private val MUTEX = Any()
 
-        private var myinstance: AppSingletons? = null
+        private var myInstance: AppSingletons? = null
 
         fun start(applicationContext: Context): AppSingletons? {
-            if (myinstance == null) {
+            if (myInstance == null) {
                 synchronized(MUTEX) {
-                    if (myinstance == null) {
-                        myinstance = AppSingletons()
-                        myinstance!!.applicationComponent = DaggerApplicationComponent.builder()
+                    if (myInstance == null) {
+                        myInstance = AppSingletons()
+                        myInstance!!.applicationComponent = DaggerApplicationComponent.builder()
                                 .applicationModule(ApplicationModule(applicationContext.applicationContext))
                                 .build()
                     }
                 }
             }
-            return myinstance
+            return myInstance
         }
 
         val instance: AppSingletons
             get() {
-                if (myinstance == null) {
+                if (myInstance == null) {
                     throw IllegalStateException("It has not been injected")
                 }
 
-                return myinstance!!
+                return myInstance!!
             }
 
         val injector: ApplicationComponent

@@ -17,32 +17,38 @@
 
 package com.glsebastiany.appbootstrap.ui.main.dashboard
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.glsebastiany.appbootstrap.R
 import com.glsebastiany.appbootstrap.databinding.FragmentDashboardBinding
-import nucleus5.factory.RequiresPresenter
-import nucleus5.view.NucleusFragment
 
-@RequiresPresenter(DashboardPresenter::class)
-class DashboardFragment : NucleusFragment<DashboardPresenter>() {
+class DashboardFragment : Fragment() {
 
-    lateinit var binding: FragmentDashboardBinding
+    private lateinit var binding: FragmentDashboardBinding
+    private lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate<FragmentDashboardBinding>(
                 inflater, R.layout.fragment_dashboard, container, false)
 
-        presenter.request()
+        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+
+        dashboardViewModel.getSampleData().observe(this, Observer { sampleData ->
+            //TODO make proper binding using Data Binding
+            updateText(sampleData)
+        })
 
         return binding.root
     }
 
-    fun updateText(value: String?){
-        binding.textView?.text = "Hello " + (value ?: " none")
+    private fun updateText(value: String?) {
+        binding.textView.text = "Hello ${value ?: " none"}"
     }
 }
