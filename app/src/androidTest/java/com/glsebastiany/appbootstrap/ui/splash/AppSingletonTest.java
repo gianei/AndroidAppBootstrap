@@ -21,9 +21,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 
-import com.glsebastiany.appbootstrap.core.application.AppSingletons;
 import com.glsebastiany.appbootstrap.ui.main.MainActivity;
 
 import org.junit.Rule;

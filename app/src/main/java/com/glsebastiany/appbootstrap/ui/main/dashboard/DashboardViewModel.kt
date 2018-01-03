@@ -21,7 +21,7 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import com.glsebastiany.appbootstrap.core.application.AppSingletons
+import com.glsebastiany.appbootstrap.core.application.getApplicationComponent
 import com.glsebastiany.appbootstrap.domain.usecases.CryptoCompareUseCase
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
@@ -34,7 +34,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     lateinit var cryptoApi: CryptoCompareUseCase
 
     init {
-        AppSingletons.injector.inject(this)
+        application.getApplicationComponent().inject(this)
     }
 
     private var subscription: Disposable? = null

@@ -22,7 +22,7 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.androidhuman.rxfirebase2.database.ChildEvent
-import com.glsebastiany.appbootstrap.core.application.AppSingletons
+import com.glsebastiany.appbootstrap.core.application.getApplicationComponent
 import com.glsebastiany.appbootstrap.domain.usecases.SampleListenUseCase
 import timber.log.Timber
 import javax.inject.Inject
@@ -33,11 +33,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var listenSampleData: SampleListenUseCase
 
-
     private val useCaseChildEvents: MutableLiveData<ChildEvent> = MutableLiveData()
 
     init {
-        AppSingletons.injector.inject(this)
+        application.getApplicationComponent().inject(this)
     }
 
     fun getLiveData(): LiveData<ChildEvent> {

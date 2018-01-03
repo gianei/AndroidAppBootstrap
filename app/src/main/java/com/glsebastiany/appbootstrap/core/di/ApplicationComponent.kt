@@ -19,8 +19,8 @@ package com.glsebastiany.appbootstrap.core.di
 
 
 import android.content.Context
-import com.glsebastiany.appbootstrap.ui.main.home.HomeViewModel
 import com.glsebastiany.appbootstrap.ui.main.dashboard.DashboardViewModel
+import com.glsebastiany.appbootstrap.ui.main.home.HomeViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -28,7 +28,10 @@ import javax.inject.Singleton
  * A component whose lifetime is the life of the application.
  */
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
-@Component(modules = arrayOf(ApplicationModule::class))
+@Component(modules = [
+    (ApplicationModule::class),
+    (RepositoryModule::class)
+])
 interface ApplicationComponent {
     // Exposed to sub-graphs. Calls like this must be inserted if it is necessary to expose Context
     // for sub components
@@ -36,5 +39,6 @@ interface ApplicationComponent {
 
     // Calls like this are needed for every point of injection
     fun inject(mainViewModel: DashboardViewModel)
+
     fun inject(homeViewModel: HomeViewModel)
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Gianei Leandro Sebastiany
+ * Copyright (c) 2018 Gianei Leandro Sebastiany
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,13 +17,11 @@
 
 package com.glsebastiany.appbootstrap.core.di
 
-import android.content.Context
-import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRepository
 import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataFirebaseRepository
 import com.glsebastiany.appbootstrap.domain.repository.firebase.SampleDataRepository
 import com.glsebastiany.appbootstrap.domain.repository.retrofit.CriptoCompareApi
 import com.glsebastiany.appbootstrap.domain.repository.retrofit.RetrofitFactory
-import com.glsebastiany.appbootstrap.domain.usecases.CryptoCompareUseCase
+import com.glsebastiany.appbootstrap.domain.repository.retrofit.SampleJsonDataRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -32,11 +30,20 @@ import javax.inject.Singleton
  * Dagger module that provides objects which will live during the application lifecycle.
  */
 @Module
-class ApplicationModule(context: Context) {
-    private val context: Context = context.applicationContext
+class RepositoryModule() {
 
     @Provides
     @Singleton
-    internal fun provideApplicationContext(): Context = this.context
+    internal fun simpleDataRepository(repository: SampleDataFirebaseRepository): SampleDataRepository =
+            repository
+
+    @Provides
+    @Singleton
+    internal fun jsonDataRepository(): SampleJsonDataRepository = RetrofitFactory.create()
+
+    @Provides
+    @Singleton
+    internal fun cryptoCompareRepository(): CriptoCompareApi = RetrofitFactory.createCryptoCompare()
+
 
 }
